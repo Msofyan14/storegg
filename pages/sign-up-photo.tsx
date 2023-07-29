@@ -35,7 +35,7 @@ export default function SignUpPhoto() {
 
   useEffect(() => {
     const getLocalForm = localStorage.getItem("user-form");
-    setLocalForm(JSON.parse(getLocalForm));
+    setLocalForm(JSON.parse(getLocalForm!));
   }, []);
 
   const onSubmit = async () => {
@@ -43,7 +43,7 @@ export default function SignUpPhoto() {
     console.log("image", image);
 
     const getLocalForm = await localStorage.getItem("user-form");
-    const form = JSON.parse(getLocalForm);
+    const form = JSON.parse(getLocalForm!);
     const data = new FormData();
 
     data.append("image", image);
@@ -57,7 +57,7 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
-    if (result.error === 1) {
+    if (result.error) {
       toast.error(result.message);
     } else {
       toast.success("Success Registered");
@@ -98,7 +98,7 @@ export default function SignUpPhoto() {
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
                       console.log(event.target.files);
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       return setImage(img);
                     }}
