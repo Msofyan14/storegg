@@ -5,13 +5,14 @@ export interface GameItemProps {
   title: string;
   category?: string;
   thumbnail: string;
+  id: string;
 }
 
 export default function GameItem(props: Partial<GameItemProps>) {
-  const { title, category = "Mobile", thumbnail } = props;
+  const { title, category, thumbnail, id } = props;
   return (
     <div className="featured-game-card position-relative">
-      <Link href="/detail">
+      <Link href={`/detail/${id}`}>
         <div className="blur-sharp">
           <Image
             src={thumbnail}
