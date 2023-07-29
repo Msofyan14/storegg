@@ -2,13 +2,20 @@ import GameItem from "@/components/molecules/GameItem";
 import { useCallback, useEffect, useState } from "react";
 import { getFeaturedGame } from "@/services/player";
 import { GameItemTypes } from "@/services/data-types";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
 
   const getFeatureGameList = useCallback(async () => {
     const data = await getFeaturedGame();
-    setGameList(data);
+    if (data.error) {
+      toast.error(data.message);
+    } else {
+      toast.success("Success Get Data");
+      setGameList(data);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getFeaturedGame]);
 
@@ -37,6 +44,7 @@ export default function FeaturedGame() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 }

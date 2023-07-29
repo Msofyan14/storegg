@@ -5,6 +5,8 @@ import TopUpItem from "@/components/organisms/TopUpItem";
 import { getDetailVoucher } from "@/services/player";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Detail() {
   const { query, isReady } = useRouter();
@@ -19,14 +21,16 @@ export default function Detail() {
   const [nominals, setNominals] = useState([]);
   const [payments, setPayments] = useState([]);
 
-  console.log("log payment", payments);
-
   const getDetailVoucherAPI = useCallback(async (id: any) => {
     const data = await getDetailVoucher(id);
-    console.log("data", data);
-    setDataItem(data.detail);
-    setNominals(data.detail.nominals);
-    setPayments(data.payment);
+    if (data.error) {
+      toast.error(data.message);
+    } else {
+      toast.success("Success Get Detail Item");
+      setDataItem(data.detail);
+      setNominals(data.detail.nominals);
+      setPayments(data.payment);
+    }
   }, []);
 
   useEffect(() => {
@@ -58,6 +62,7 @@ export default function Detail() {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </section>
       <Footer />
     </>

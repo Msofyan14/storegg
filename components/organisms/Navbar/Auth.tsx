@@ -1,12 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
+import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
+import { useRouter } from "next/router";
 
-interface AuthProps {
-  isLogin?: boolean;
-}
+export default function Auth() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState({});
 
-export default function Auth(props: Partial<AuthProps>) {
-  const { isLogin } = props;
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      const jwtToken = atob(token);
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload.player;
+      setIsLogin(true);
+    }
+  }, []);
+
+  const onLogout = () => {
+    Cookies.remove("token");
+    router.push("/");
+    setIsLogin(false);
+  };
 
   if (isLogin) {
     return (
@@ -55,13 +75,13 @@ export default function Auth(props: Partial<AuthProps>) {
                 Account Settings
               </Link>
             </li>
-            <li>
-              <Link
-                href="/sign-in"
+            <li onClick={onLogout}>
+              <button
+                type="button"
                 className="dropdown-item text-lg color-palette-2"
               >
                 Log Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
