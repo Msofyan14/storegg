@@ -19,6 +19,7 @@ export default function Auth() {
       const payload: JWTPayloadTypes = jwtDecode(jwtToken);
       const userFromPayload: UserTypes = payload.player;
       setIsLogin(true);
+      setUser(userFromPayload);
     }
   }, []);
 

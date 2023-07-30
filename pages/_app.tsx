@@ -14,6 +14,9 @@ import "@/styles/transactions.css";
 import "@/styles/transactions-detail.css";
 import "@/styles/edit-profile.css";
 import "@/styles/navbar-log-in.css";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import "bootstrap/dist/css/bootstrap.css";
 import "aos/dist/aos.css";
@@ -35,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
         crossOrigin="anonymous"
       />
       <Component {...pageProps} />
+      <ToastContainer />
     </>
   );
 }

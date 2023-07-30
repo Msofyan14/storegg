@@ -19,7 +19,7 @@ export interface BanksTypes {
   bankName: string;
 }
 
-export interface PayementTypes {
+export interface PaymentTypes {
   _id: string;
   type: string;
   status: string;
