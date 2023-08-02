@@ -34,10 +34,12 @@ export default async function callAPI({
     return res;
   }
 
+  const length = Object.keys(response.data).length;
+
   const res = {
     error: false,
     message: "Success",
-    data: response.data.data,
+    data: length > 1 ? response.data : response.data.data,
   };
   return res;
 }

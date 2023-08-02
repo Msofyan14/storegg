@@ -1,30 +1,31 @@
 import Image from "next/image";
 import cx from "classnames";
+import { NumericFormat } from "react-number-format";
 
 interface TableRowProps {
   title: string;
-  categori: string;
-  item: number;
+  category: string;
+  item: string;
   price: number;
-  status: "Pending" | "Success" | "Failed";
+  status: string;
   image: string;
 }
 
 export default function TableRow(props: TableRowProps) {
-  const { title, categori, item, price, status, image } = props;
+  const { title, category, item, price, status, image } = props;
 
   const statusClass = cx({
     "float-start icon-status": true,
-    pending: status === "Pending",
-    success: status === "Success",
-    failed: status === "Failed",
+    pending: status === "pending",
+    success: status === "success",
+    failed: status === "failed",
   });
   return (
     <tr className="align-middle">
       <th scope="row">
         <Image
           className="float-start me-3 mb-lg-0 mb-3"
-          src={`/img/${image}.png`}
+          src={image}
           width="80"
           height="60"
           alt=""
@@ -34,7 +35,7 @@ export default function TableRow(props: TableRowProps) {
             {title}
           </p>
           <p className="text-xs fw-normal text-start color-palette-2 m-0">
-            {categori}
+            {category}
           </p>
         </div>
       </th>
@@ -42,7 +43,15 @@ export default function TableRow(props: TableRowProps) {
         <p className="fw-medium color-palette-1 m-0">{item}</p>
       </td>
       <td>
-        <p className="fw-medium text-start color-palette-1 m-0">{price}</p>
+        <p className="fw-medium text-start color-palette-1 m-0">
+          <NumericFormat
+            prefix="Rp. "
+            value={price}
+            displayType="text"
+            thousandSeparator="."
+            decimalSeparator=","
+          />
+        </p>
       </td>
       <td>
         <div>
