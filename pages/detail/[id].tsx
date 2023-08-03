@@ -2,42 +2,57 @@ import Footer from "@/components/organisms/Footer";
 import Navbar from "@/components/organisms/Navbar";
 import TopUpForm from "@/components/organisms/TopUpForm";
 import TopUpItem from "@/components/organisms/TopUpItem";
-import { getDetailVoucher } from "@/services/player";
-import { useRouter } from "next/router";
+import {
+  GameItemTypes,
+  NominalsTypes,
+  PaymentTypes,
+} from "@/services/data-types";
+import { getDetailVoucher, getFeaturedGame } from "@/services/player";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function Detail() {
-  const { query, isReady } = useRouter();
-  const [dataItem, setDataItem] = useState({
-    name: "",
-    thumbnail: "",
-    category: {
-      name: "",
-    },
-  });
+interface DetailProps {
+  dataItem: GameItemTypes;
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
+}
 
-  const [nominals, setNominals] = useState([]);
-  const [payments, setPayments] = useState([]);
-
-  const getDetailVoucherAPI = useCallback(async (id: any) => {
-    const data = await getDetailVoucher(id);
-    if (data.error) {
-      toast.error(data.message);
-    } else {
-      // toast.success("Success Get Detail Item");
-      setDataItem(data.detail);
-      localStorage.setItem("data-item", JSON.stringify(data.detail));
-      setNominals(data.detail.nominals);
-      setPayments(data.payment);
-    }
-  }, []);
-
+export default function Detail({ dataItem, nominals, payments }: DetailProps) {
   useEffect(() => {
-    if (isReady) {
-      getDetailVoucherAPI(query.id);
-    }
-  }, [getDetailVoucherAPI, isReady, query.id]);
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  }, [dataItem]);
+
+  // CLIENT SIDE RENDERING
+  // const { query, isReady } = useRouter();
+  // const [dataItem, setDataItem] = useState({
+  //   name: "",
+  //   thumbnail: "",
+  //   category: {
+  //     name: "",
+  //   },
+  // });
+
+  // const [nominals, setNominals] = useState([]);
+  // const [payments, setPayments] = useState([]);
+
+  // const getDetailVoucherAPI = useCallback(async (id: any) => {
+  //   const data = await getDetailVoucher(id);
+  //   if (data.error) {
+  //     toast.error(data.message);
+  //   } else {
+  //     // toast.success("Success Get Detail Item");
+  //     setDataItem(data.detail);
+  //     localStorage.setItem("data-item", JSON.stringify(data.detail));
+  //     setNominals(data.detail.nominals);
+  //     setPayments(data.payment);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (isReady) {
+  //     getDetailVoucherAPI(query.id);
+  //   }
+  // }, [getDetailVoucherAPI, isReady, query.id]);
   return (
     <>
       <Navbar />
@@ -66,4 +81,37 @@ export default function Detail() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticPaths() {
+  const data = await getFeaturedGame();
+  const paths = data.map((item: GameItemTypes) => ({
+    params: {
+      id: item._id,
+    },
+  }));
+  console.log("paths", paths);
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+interface GetStaticProps {
+  params: {
+    id: string;
+  };
+}
+
+export async function getStaticProps({ params }: GetStaticProps) {
+  const { id } = params;
+  const data = await getDetailVoucher(id);
+  console.log("data", data);
+  return {
+    props: {
+      dataItem: data.detail,
+      nominals: data.detail.nominals,
+      payments: data.payment,
+    },
+  };
 }

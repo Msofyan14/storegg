@@ -272,6 +272,7 @@ export default function CompleteCheckout() {
             href="https://wa.me/6289506347625?text=I%20have%20done%20success%20the%20payment%20"
             className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
             role="button"
+            target="blank"
           >
             WhatsApp ke Admin
           </Link>

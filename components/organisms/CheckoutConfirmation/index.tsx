@@ -18,22 +18,23 @@ export default function CheckoutConfirmation() {
     console.log("submit", checkBox);
     if (!checkBox) {
       toast.error("Make sure you have done the payment");
-    }
-    const data = {
-      voucher: dataItem._id,
-      nominal: dataTopUp.nominalItem._id,
-      payment: dataTopUp.paymentItem.payment._id,
-      bank: dataTopUp.paymentItem.bank._id,
-      name: dataTopUp.bankAccountName,
-      accountUser: dataTopUp.verifyID,
-    };
-
-    const response = await setCheckout(data);
-    if (response.error) {
-      toast.error(response.message);
     } else {
-      toast.success("Success Checkout");
-      router.push("/complete-checkout");
+      const data = {
+        voucher: dataItem._id,
+        nominal: dataTopUp.nominalItem._id,
+        payment: dataTopUp.paymentItem.payment._id,
+        bank: dataTopUp.paymentItem.bank._id,
+        name: dataTopUp.bankAccountName,
+        accountUser: dataTopUp.verifyID,
+      };
+
+      const response = await setCheckout(data);
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success("Success Checkout");
+        router.push("/complete-checkout");
+      }
     }
   };
   return (
