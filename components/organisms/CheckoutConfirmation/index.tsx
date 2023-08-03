@@ -15,7 +15,6 @@ export default function CheckoutConfirmation() {
   const router = useRouter();
 
   const onSubmit = async () => {
-    console.log("submit", checkBox);
     if (!checkBox) {
       toast.error("Make sure you have done the payment");
     } else {

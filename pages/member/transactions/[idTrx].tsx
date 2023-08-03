@@ -8,7 +8,6 @@ interface transactionDetailProps {
 
 export default function TransactionsDetail(props: transactionDetailProps) {
   const { transactionDetail } = props;
-  console.log(transactionDetail);
   return (
     <section className="transactions-detail overflow-auto">
       <TransactionDetailContent data={transactionDetail} />
@@ -28,7 +27,6 @@ interface GetServerSideProps {
 }
 
 export async function getServerSideProps({ req, params }: GetServerSideProps) {
-  console.log(params);
   const { idTrx } = params;
   const { token } = req.cookies;
   if (!token) {
@@ -41,7 +39,6 @@ export async function getServerSideProps({ req, params }: GetServerSideProps) {
   }
   const jwtToken = Buffer.from(token, "base64").toString("ascii");
   const response = await getTransactionDetail(idTrx, jwtToken);
-  console.log("response", response);
   return {
     props: {
       transactionDetail: response.data,

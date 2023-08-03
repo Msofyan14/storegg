@@ -1,8 +1,6 @@
 import Image from "next/image";
 import cx from "classnames";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 
 interface MenuItemProps {
   title: string;
@@ -21,7 +19,7 @@ interface MenuItemProps {
 }
 
 export default function MenuItem(props: Partial<MenuItemProps>) {
-  const { title, icon, active, href, onClick } = props;
+  const { title, icon, active, href = "/", onClick } = props;
 
   const classItem = cx({
     item: true,

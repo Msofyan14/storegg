@@ -15,7 +15,7 @@ export default function GameItem(props: Partial<GameItemProps>) {
       <Link href={`/detail/${id}`}>
         <div className="blur-sharp">
           <Image
-            src={thumbnail}
+            src={thumbnail ?? ""}
             width={205}
             height={270}
             alt=""

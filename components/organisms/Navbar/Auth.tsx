@@ -43,7 +43,7 @@ export default function Auth() {
             aria-expanded="false"
           >
             <Image
-              src="/img/avatar-1.png"
+              src="https://source.unsplash.com/random/40x40/?person"
               className="rounded-circle"
               width="40"
               height="40"

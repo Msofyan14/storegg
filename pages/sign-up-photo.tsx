@@ -13,8 +13,9 @@ interface CategoryTypes {
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  // const [image, setImage] = useState("");
+  // const [image, setImage] = useState<File | null>(null);
+  // const [imagePreview, setImagePreview] = useState(null);
   const [localForm, setLocalForm] = useState({
     name: "",
     email: "",
@@ -38,14 +39,11 @@ export default function SignUpPhoto() {
   }, []);
 
   const onSubmit = async () => {
-    console.log("favorite", favorite);
-    console.log("image", image);
-
     const getLocalForm = await localStorage.getItem("user-form");
     const form = JSON.parse(getLocalForm!);
     const data = new FormData();
 
-    data.append("image", image);
+    // data.append("image", image);
     data.append("email", form.email);
     data.append("name", form.name);
     data.append("username", form.name);
@@ -71,7 +69,7 @@ export default function SignUpPhoto() {
           <div className="form-input d-md-block d-flex flex-column">
             <div>
               <div className="mb-20">
-                <div className="image-upload text-center">
+                {/* <div className="image-upload text-center">
                   <label htmlFor="avatar">
                     {imagePreview ? (
                       <Image
@@ -96,13 +94,12 @@ export default function SignUpPhoto() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      console.log(event.target.files);
                       const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       return setImage(img);
                     }}
                   />
-                </div>
+                </div> */}
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
                 {localForm.name}

@@ -16,7 +16,6 @@ export default function TransactionContent() {
     if (response.error) {
       toast.error(response.error);
     } else {
-      console.log("response", response);
       setTotal(response.data.total);
       setTransactions(response.data.data);
     }
@@ -30,8 +29,6 @@ export default function TransactionContent() {
     setTab(value);
     getMemberTransactionsAPI(value);
   };
-
-  console.log(tab);
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (

@@ -23,10 +23,10 @@ function Profile() {
   return (
     <div className="user text-center pb-50 pe-30">
       <Image
-        src={Avatar}
+        src="https://source.unsplash.com/random/40x40/?person"
         width="90"
         height="90"
-        className="img-fluid mb-20"
+        className="img-fluid mb-20 rounded-circle"
         alt=""
       />
       <h2 className="fw-bold text-xl color-palette-1 m-0">{user.name}</h2>

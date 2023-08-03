@@ -32,7 +32,6 @@ export async function getMemberTransactions(valueParams: string) {
 
 export async function getTransactionDetail(id: string, token: string) {
   const url = `${ROOT_API}/${API_VERSION}/players/history/${id}/detail`;
-  console.log(url);
 
   return callAPI({
     url,

@@ -13,8 +13,6 @@ export default function TransactionsDetailContent(
 ) {
   const { data } = props;
 
-  console.log("data", data);
-
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">

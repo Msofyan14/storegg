@@ -22,6 +22,8 @@ export default function FeaturedGame() {
     getFeatureGameList();
   }, [getFeatureGameList]);
 
+  const IMG = process.env.NEXT_PUBLIC_IMG;
+
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -38,7 +40,7 @@ export default function FeaturedGame() {
               key={item._id}
               id={item._id}
               title={item.name}
-              thumbnail={`${process.env.NEXT_PUBLIC_IMG}/${item.thumbnail}`}
+              thumbnail={`${IMG}/${item.thumbnail}`}
             />
           ))}
         </div>

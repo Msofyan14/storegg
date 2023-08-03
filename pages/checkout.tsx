@@ -1,21 +1,12 @@
 import CheckoutConfirmation from "@/components/organisms/CheckoutConfirmation";
 import CheckoutDetail from "@/components/organisms/CheckoutDetail";
 import CheckoutItem from "@/components/organisms/CheckoutItem";
-import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
-import jwtDecode from "jwt-decode";
 import { NextApiRequest } from "next";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 
-interface CheckOutProps {
-  user: UserTypes;
-}
-
-export default function checkout(props: CheckOutProps) {
-  const { user } = props;
-
+export default function checkout() {
   return (
     <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
@@ -49,12 +40,8 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
       },
     };
   }
-  const jwtToken = Buffer.from(token, "base64").toString("ascii");
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  const userFromPayload: UserTypes = payload.player;
+
   return {
-    props: {
-      user: userFromPayload,
-    },
+    props: {},
   };
 }

@@ -10,6 +10,6 @@
 
 module.exports = {
   images: {
-    domains: ["storeggserver.cyclic.app"],
+    domains: ["storeggserver.cyclic.app", "source.unsplash.com"],
   },
 };
